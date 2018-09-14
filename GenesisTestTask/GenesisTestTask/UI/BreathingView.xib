@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BreathingView" customModule="TestGenesis" customModuleProvider="target">
+            <connections>
+                <outlet property="breathingView" destination="cbU-vI-sJZ" id="qgw-cN-uqj"/>
+                <outlet property="breathingViewHeightConstraint" destination="vgU-Dc-JEW" id="ZJw-GV-voR"/>
+                <outlet property="breathingViewWidthConstraint" destination="sbJ-bW-lac" id="ntt-uL-tIV"/>
+                <outlet property="phaseTitle" destination="XZb-WK-j0e" id="ua0-A7-al3"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="cXf-aj-pOu" userLabel="BreathingView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="405"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cbU-vI-sJZ">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="405"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XZb-WK-j0e">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="405"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <gestureRecognizers/>
+            <constraints>
+                <constraint firstItem="XZb-WK-j0e" firstAttribute="top" secondItem="lzC-1t-5Wf" secondAttribute="top" id="BQ4-n9-gky"/>
+                <constraint firstItem="cbU-vI-sJZ" firstAttribute="centerX" secondItem="cXf-aj-pOu" secondAttribute="centerX" id="QmE-p2-Jvg"/>
+                <constraint firstItem="cbU-vI-sJZ" firstAttribute="centerY" secondItem="cXf-aj-pOu" secondAttribute="centerY" id="VBc-rf-EAC"/>
+                <constraint firstItem="XZb-WK-j0e" firstAttribute="leading" secondItem="lzC-1t-5Wf" secondAttribute="leading" id="pgB-ai-0Db"/>
+                <constraint firstItem="cbU-vI-sJZ" firstAttribute="height" secondItem="cXf-aj-pOu" secondAttribute="height" id="sbJ-bW-lac"/>
+                <constraint firstItem="lzC-1t-5Wf" firstAttribute="trailing" secondItem="XZb-WK-j0e" secondAttribute="trailing" id="u1P-db-UsX"/>
+                <constraint firstItem="cbU-vI-sJZ" firstAttribute="width" secondItem="cXf-aj-pOu" secondAttribute="width" id="vgU-Dc-JEW"/>
+                <constraint firstItem="lzC-1t-5Wf" firstAttribute="bottom" secondItem="XZb-WK-j0e" secondAttribute="bottom" id="wHK-Fe-gTU"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="lzC-1t-5Wf"/>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="Pjl-7M-gFJ" appends="YES" id="RK5-Xp-0f3"/>
+            </connections>
+            <point key="canvasLocation" x="33.5" y="184.5"/>
+        </view>
+        <tapGestureRecognizer id="Pjl-7M-gFJ">
+            <connections>
+                <action selector="attemptToStart:" destination="-1" id="HlS-MF-hNo"/>
+            </connections>
+        </tapGestureRecognizer>
+    </objects>
+</document>
