@@ -15,6 +15,7 @@ class BreathingViewController: UIViewController {
     private var phases: [Phase]?
     private var timer: Timer?
     private var totalDuration: TimeInterval = 0
+    private var currentPhaseDuration: TimeInterval = 0
     
     @IBOutlet private var remainingCounter: UILabel!
     @IBOutlet private var breathingView: BreathingView!
@@ -36,6 +37,10 @@ class BreathingViewController: UIViewController {
     }
     
     // MARK: - Timer functions
+    private func startTimer() {
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: updateTimer(_:))
+        timer?.fire()
+    }
     private func updateRemaining(_ remaining: TimeInterval?) {
         guard let formattedTime = remaining?.elapsedFormat() else {
             remainingCounter.text = nil
@@ -44,14 +49,19 @@ class BreathingViewController: UIViewController {
         remainingCounter.text = "Remaining\n\(formattedTime)"
     }
     private func updateTimer(_ timer: Timer) {
+        if currentPhaseDuration <= 0 {
+            startNextPhase(on: breathingView)
+        }
         guard totalDuration > 0 else {
             updateRemaining(nil)
             resetTimer()
             return
         }
         totalDuration -= 1
+        currentPhaseDuration -= 1
         // update remaining label
         updateRemaining(totalDuration)
+        breathingView.timerTick(at: currentPhaseDuration)
     }
     private func resetTimer() {
         timer?.invalidate()
@@ -62,15 +72,12 @@ class BreathingViewController: UIViewController {
 extension BreathingViewController: BreathingViewDelegate {
     func attemptToStartBreathing(on view: BreathingView) {
         startNextPhase(on: view)
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: updateTimer(_:))
-        timer?.fire()
-    }
-    func didFinishPhase(on view: BreathingView) {
-        startNextPhase(on: view)
+        startTimer()
     }
     private func startNextPhase(on view: BreathingView) {
         if phases?.isEmpty == false,
             let nextPhase = phases?.removeFirst() {
+            currentPhaseDuration = nextPhase.duration
             view.setup(state: .animating(phase: nextPhase))
         } else {
             view.setup(state: .unknown)

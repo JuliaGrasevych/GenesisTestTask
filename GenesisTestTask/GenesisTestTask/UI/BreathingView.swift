@@ -10,7 +10,6 @@ import UIKit
 
 protocol BreathingViewDelegate: class {
     func attemptToStartBreathing(on view: BreathingView)
-    func didFinishPhase(on view: BreathingView)
 }
 
 class BreathingView: UIView {
@@ -34,9 +33,7 @@ class BreathingView: UIView {
     
     @IBOutlet private var phaseTitle: UILabel!
     @IBOutlet private var breathingView: UIView!
-    
-    private var duration: TimeInterval = 0
-    private var timer: Timer?
+
     private var phase: Phase?
     
     // MARK: - Initializers
@@ -52,6 +49,10 @@ class BreathingView: UIView {
         case .animating(let phase):
             start(phase: phase)
         }
+    }
+    func timerTick(at timestamp: TimeInterval) {
+        print("timer tick with duration \(timestamp)")
+        phaseTitle.text = phase?.displayTitle(at: timestamp)
     }
     
     // MARK: - Private functions
@@ -79,14 +80,10 @@ class BreathingView: UIView {
         transformView(to: state, withDuration: defaultDuration, completion: completion)
     }
     private func start(phase: Phase) {
-        resetTimer()
+        print("start Phase \(phase)")
         self.phase = phase
-        duration = phase.duration
         breathingView.backgroundColor = phase.color
-        transformView(to: .animating(phase: phase), withDuration: duration)
-        // start timer to update title
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: updateTimer(_:))
-        timer?.fire()
+        transformView(to: .animating(phase: phase), withDuration: phase.duration)
     }
     private func transformView(to state: State, withDuration duration: TimeInterval, completion: ((Bool) -> Void)? = nil) {
         // animate view if needed
@@ -98,20 +95,5 @@ class BreathingView: UIView {
             },
                            completion: completion)
         }
-    }
-    // MARK: - Timer functions
-    private func updateTimer(_ timer: Timer) {
-        guard duration > 0 else {
-            phase = nil
-            resetTimer()
-            delegate?.didFinishPhase(on: self)
-            return
-        }
-        duration -= 1
-        phaseTitle.text = phase?.displayTitle(at: duration)
-    }
-    private func resetTimer() {
-        timer?.invalidate()
-        timer = nil
     }
 }
