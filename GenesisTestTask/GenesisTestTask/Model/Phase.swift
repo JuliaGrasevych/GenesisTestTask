@@ -60,12 +60,8 @@ struct Phase: Decodable {
 
 extension Phase {
     func displayTitle(at time: TimeInterval) -> String {
-        let formatter = DateComponentsFormatter()
-        formatter.unitsStyle = .positional
-        formatter.allowedUnits = [.minute, .second]
-        formatter.zeroFormattingBehavior = .pad
         var displayTitle = type.description
-        if let formattedTime = formatter.string(from: time) {
+        if let formattedTime = time.elapsedFormat() {
             displayTitle += "\n\(formattedTime)"
         }
         return displayTitle

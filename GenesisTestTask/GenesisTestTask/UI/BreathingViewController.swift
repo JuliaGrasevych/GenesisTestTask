@@ -13,6 +13,8 @@ class BreathingViewController: UIViewController {
     var phaseProvider: PhaseProvider?
     
     private var phases: [Phase]?
+    private var timer: Timer?
+    private var totalDuration: TimeInterval = 0
     
     @IBOutlet private var remainingCounter: UILabel!
     @IBOutlet private var breathingView: BreathingView!
@@ -22,6 +24,7 @@ class BreathingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         phases = phaseProvider?.phases()
+        totalDuration = phases?.reduce(0, { return $0 + $1.duration }) ?? 0
         breathingView.delegate = self
         breathingView.setup(state: .unknown)
     }
@@ -31,11 +34,36 @@ class BreathingViewController: UIViewController {
         startButton.isHidden = true
         breathingView.setup(state: .default)
     }
+    
+    // MARK: - Timer functions
+    private func updateRemaining(_ remaining: TimeInterval?) {
+        guard let formattedTime = remaining?.elapsedFormat() else {
+            remainingCounter.text = nil
+            return
+        }
+        remainingCounter.text = "Remaining\n\(formattedTime)"
+    }
+    private func updateTimer(_ timer: Timer) {
+        guard totalDuration > 0 else {
+            updateRemaining(nil)
+            resetTimer()
+            return
+        }
+        totalDuration -= 1
+        // update remaining label
+        updateRemaining(totalDuration)
+    }
+    private func resetTimer() {
+        timer?.invalidate()
+        timer = nil
+    }
 }
 // MARK: - BreathingView Delegate
 extension BreathingViewController: BreathingViewDelegate {
     func attemptToStartBreathing(on view: BreathingView) {
         startNextPhase(on: view)
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: updateTimer(_:))
+        timer?.fire()
     }
     func didFinishPhase(on view: BreathingView) {
         startNextPhase(on: view)
