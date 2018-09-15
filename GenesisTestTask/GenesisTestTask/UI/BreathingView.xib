@@ -10,11 +10,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BreathingView" customModule="TestGenesis" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BreathingView" customModule="GenesisTestTask" customModuleProvider="target">
             <connections>
                 <outlet property="breathingView" destination="cbU-vI-sJZ" id="qgw-cN-uqj"/>
-                <outlet property="breathingViewHeightConstraint" destination="vgU-Dc-JEW" id="ZJw-GV-voR"/>
-                <outlet property="breathingViewWidthConstraint" destination="sbJ-bW-lac" id="ntt-uL-tIV"/>
                 <outlet property="phaseTitle" destination="XZb-WK-j0e" id="ua0-A7-al3"/>
             </connections>
         </placeholder>
@@ -27,7 +25,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="405"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XZb-WK-j0e">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XZb-WK-j0e">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="405"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
@@ -50,15 +48,7 @@
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="lzC-1t-5Wf"/>
-            <connections>
-                <outletCollection property="gestureRecognizers" destination="Pjl-7M-gFJ" appends="YES" id="RK5-Xp-0f3"/>
-            </connections>
             <point key="canvasLocation" x="33.5" y="184.5"/>
         </view>
-        <tapGestureRecognizer id="Pjl-7M-gFJ">
-            <connections>
-                <action selector="attemptToStart:" destination="-1" id="HlS-MF-hNo"/>
-            </connections>
-        </tapGestureRecognizer>
     </objects>
 </document>

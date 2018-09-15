@@ -13,28 +13,41 @@
         <!--Breathing View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="BreathingViewController" customModule="TestGenesis" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="BreathingViewController" customModule="GenesisTestTask" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rq4-3g-lZe" userLabel="BreathingView" customClass="BreathingView" customModule="TestGenesis" customModuleProvider="target">
-                                <rect key="frame" x="16" y="30" width="343" height="406"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rq4-3g-lZe" userLabel="BreathingView" customClass="BreathingView" customModule="GenesisTestTask" customModuleProvider="target">
+                                <rect key="frame" x="16" y="30" width="343" height="427"/>
+                                <color key="backgroundColor" red="0.62535453220000004" green="1" blue="0.83700525940000003" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4wa-f8-aGV" userLabel="Counter">
-                                <rect key="frame" x="16" y="609" width="343" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4wa-f8-aGV" userLabel="Counter">
+                                <rect key="frame" x="16" y="630" width="343" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="center" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dft-Pq-r4E">
+                                <rect key="frame" x="16" y="30" width="343" height="427"/>
+                                <state key="normal" title="TAP HERE TO BREATH">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="startBreathing:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BXp-gA-3jb"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="Dft-Pq-r4E" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="86z-V5-bTn"/>
+                            <constraint firstItem="Dft-Pq-r4E" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="CLa-jN-qm6"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Dft-Pq-r4E" secondAttribute="trailing" constant="16" id="DNz-nC-7BE"/>
                             <constraint firstItem="4wa-f8-aGV" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="GuG-0L-qBu"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="4wa-f8-aGV" secondAttribute="trailing" constant="16" id="UkM-9i-WAB"/>
                             <constraint firstItem="4wa-f8-aGV" firstAttribute="top" secondItem="rq4-3g-lZe" secondAttribute="bottom" constant="173" id="WNO-NM-l3f"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="rq4-3g-lZe" secondAttribute="trailing" constant="16" id="hXG-h3-x7t"/>
+                            <constraint firstItem="4wa-f8-aGV" firstAttribute="top" secondItem="Dft-Pq-r4E" secondAttribute="bottom" constant="173" id="jgN-7B-VQf"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="4wa-f8-aGV" secondAttribute="bottom" constant="37" id="oAq-gP-aE8"/>
                             <constraint firstItem="rq4-3g-lZe" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="qBt-bV-yji"/>
                             <constraint firstItem="rq4-3g-lZe" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="vO1-Me-4sV"/>
@@ -44,6 +57,7 @@
                     <connections>
                         <outlet property="breathingView" destination="rq4-3g-lZe" id="ha2-0U-nsW"/>
                         <outlet property="remainingCounter" destination="4wa-f8-aGV" id="aUp-jq-adP"/>
+                        <outlet property="startButton" destination="Dft-Pq-r4E" id="nLD-Ow-zAI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

@@ -14,12 +14,26 @@ protocol BreathingViewDelegate: class {
 }
 
 class BreathingView: UIView {
+    enum State {
+        case unknown
+        case`default`
+        case animating(phase: Phase)
+        
+        var scaleFactor: CGFloat? {
+            switch self {
+            case .unknown: return 1.0
+            case .default: return 0.75
+            case .animating(let phase): return phase.type.scaleFactor
+            }
+        }
+    }
+    
     weak var delegate: BreathingViewDelegate?
+    
+    private let defaultDuration = 1.0
     
     @IBOutlet private var phaseTitle: UILabel!
     @IBOutlet private var breathingView: UIView!
-    @IBOutlet private var breathingViewWidthConstraint: NSLayoutConstraint!
-    @IBOutlet private var breathingViewHeightConstraint: NSLayoutConstraint!
     
     private var duration: TimeInterval = 0
     private var timer: Timer?
@@ -31,34 +45,15 @@ class BreathingView: UIView {
         defaultInit()
     }
     // MARK: - State configuration
-    func restoreDefault() {
-        breathingView.transform = CGAffineTransform.identity.scaledBy(x: 0.75, y: 0.75)
-        phaseTitle.text = "TAP TO START"
-        breathingView.backgroundColor = .yellow
-        //TODO: enable recognizer
+    func setup(state: State) {
+        switch state {
+        case .unknown, .default:
+            restoreDefault(state: state)
+        case .animating(let phase):
+            start(phase: phase)
+        }
     }
     
-    func start(phase: Phase) {
-        resetTimer()
-        self.phase = phase
-        duration = phase.duration
-        breathingView.backgroundColor = phase.color
-        // animate view if needed
-        if let sizeMultiplier = phase.type.scaleFactor {
-            let transform = CGAffineTransform.identity.scaledBy(x: sizeMultiplier, y: sizeMultiplier)
-            UIView.animate(withDuration: duration) {
-                self.breathingView.transform = transform
-            }
-        }
-        phaseTitle.text = phase.displayTitle(at: duration)
-        // start timer to update title
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: updateTimer(_:))
-    }
-    // MARK: - Interface handlers
-    @IBAction func attemptToStart(_ tapRecognizer: UITapGestureRecognizer) {
-        delegate?.attemptToStartBreathing(on: self)
-        tapRecognizer.isEnabled = false
-    }
     // MARK: - Private functions
     // MARK: - Initializers
     private func defaultInit() {
@@ -68,9 +63,46 @@ class BreathingView: UIView {
         addSubview(contentView)
         NSLayoutConstraint.scaleToFillParent(childView: contentView)
     }
+    // MARK: - State configuration
+    private func restoreDefault(state: State) {
+        let completion: ((Bool) -> Void)? = {
+            switch state {
+            case .default:
+                return { (result: Bool) in
+                    self.delegate?.attemptToStartBreathing(on: self)
+                }
+            default: return nil
+            }
+        }()
+        phaseTitle.text = nil
+        breathingView.backgroundColor = .yellow
+        transformView(to: state, withDuration: defaultDuration, completion: completion)
+    }
+    private func start(phase: Phase) {
+        resetTimer()
+        self.phase = phase
+        duration = phase.duration
+        breathingView.backgroundColor = phase.color
+        transformView(to: .animating(phase: phase), withDuration: duration)
+        // start timer to update title
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: updateTimer(_:))
+        timer?.fire()
+    }
+    private func transformView(to state: State, withDuration duration: TimeInterval, completion: ((Bool) -> Void)? = nil) {
+        // animate view if needed
+        if let scaleFactor = state.scaleFactor {
+            let transform = CGAffineTransform.identity.scaledBy(x: scaleFactor, y: scaleFactor)
+            UIView.animate(withDuration: duration,
+                           animations: {
+                            self.breathingView.transform = transform
+            },
+                           completion: completion)
+        }
+    }
     // MARK: - Timer functions
     private func updateTimer(_ timer: Timer) {
         guard duration > 0 else {
+            phase = nil
             resetTimer()
             delegate?.didFinishPhase(on: self)
             return
