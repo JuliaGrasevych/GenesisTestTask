@@ -37,7 +37,6 @@ struct Phase: Decodable {
     var duration: TimeInterval
     var color: UIColor
     
-    
     // MARK: - Initializers
     init(from decoder: Decoder) throws {
         // Using custom decoding to convert hex string to UIColor

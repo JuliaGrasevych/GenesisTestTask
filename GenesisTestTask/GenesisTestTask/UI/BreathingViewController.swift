@@ -49,7 +49,7 @@ class BreathingViewController: UIViewController {
         remainingCounter.text = "Remaining\n\(formattedTime)"
     }
     private func updateTimer(_ timer: Timer) {
-        if currentPhaseDuration <= 0 {
+        if currentPhaseDuration == 0 {
             startNextPhase(on: breathingView)
         }
         guard totalDuration > 0 else {
@@ -59,7 +59,7 @@ class BreathingViewController: UIViewController {
         }
         totalDuration -= 1
         currentPhaseDuration -= 1
-        // update remaining label
+        
         updateRemaining(totalDuration)
         breathingView.timerTick(at: currentPhaseDuration)
     }

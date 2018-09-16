@@ -12,10 +12,11 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    private var phasesFileName = "Phases"
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         if let viewController = window?.rootViewController as? BreathingViewController {
-            viewController.phaseProvider = AssetPhaseProvider(fileName: "Phases")
+            viewController.phaseProvider = AssetPhaseProvider(fileName: phasesFileName)
         }
         return true
     }

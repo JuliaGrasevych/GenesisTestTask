@@ -26,15 +26,16 @@ class BreathingView: UIView {
             }
         }
     }
-    
+    private struct DefaultValues {
+        static let duration = 1.0
+        static let color = UIColor.yellow
+    }
     weak var delegate: BreathingViewDelegate?
     
-    private let defaultDuration = 1.0
+    private var phase: Phase?
     
     @IBOutlet private var phaseTitle: UILabel!
     @IBOutlet private var breathingView: UIView!
-
-    private var phase: Phase?
     
     // MARK: - Initializers
     required init?(coder aDecoder: NSCoder) {
@@ -76,8 +77,8 @@ class BreathingView: UIView {
             }
         }()
         phaseTitle.text = nil
-        breathingView.backgroundColor = .yellow
-        transformView(to: state, withDuration: defaultDuration, completion: completion)
+        breathingView.backgroundColor = DefaultValues.color
+        transformView(to: state, withDuration: DefaultValues.duration, completion: completion)
     }
     private func start(phase: Phase) {
         print("start Phase \(phase)")

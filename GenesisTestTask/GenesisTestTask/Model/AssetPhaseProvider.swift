@@ -29,7 +29,7 @@ class AssetPhaseProvider: PhaseProvider {
             do {
                 return try [Phase].decode(data: data)
             } catch let exception {
-                print(exception)
+                print("Failed to decode phases: \(exception)")
                 return nil
             }
         }()

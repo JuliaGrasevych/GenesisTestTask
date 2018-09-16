@@ -9,7 +9,7 @@
 import UIKit
 
 extension UIColor {
-    /// Initialize color with hex value (withou alpha channel)
+    /// Initialize color with hex value (without alpha channel)
     public convenience init?(hexString: String) {
         let red, green, blue: CGFloat
         
